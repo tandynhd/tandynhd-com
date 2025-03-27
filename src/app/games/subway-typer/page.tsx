@@ -146,12 +146,10 @@ export default function SubwayTyper() {
                 variant="contained"
                 onClick={handleRestart}
                 sx={{
-                  background:
-                    "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
+                  background: "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
                   color: "white",
                   "&:hover": {
-                    background:
-                      "linear-gradient(45deg, #FF3366 20%, #6C63FF 80%)",
+                    background: "linear-gradient(45deg, #FF3366 20%, #6C63FF 80%)",
                   },
                 }}
               >

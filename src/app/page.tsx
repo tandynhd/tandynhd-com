@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Typography, Button, Grid, Paper, useTheme } from "@mui/material";
+import { Box, Typography, Button, Paper, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
-import fs from "fs";
-import path from "path";
-
+import Image from "next/image";
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -118,9 +116,7 @@ export default function Home() {
                       : "rgba(0, 0, 0, 0.1)"
                   }`,
                   boxShadow:
-                    theme.palette.mode === "dark"
-                      ? "none"
-                      : "0 4px 20px rgba(0, 0, 0, 0.1)",
+                    theme.palette.mode === "dark" ? "none" : "0 4px 20px rgba(0, 0, 0, 0.1)",
                 }}
               >
                 <Box
@@ -133,15 +129,7 @@ export default function Home() {
                     overflow: "hidden",
                   }}
                 >
-                  <img
-                    src={game.image}
-                    alt={game.name}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
+                  <Image src={game.image} alt={game.name} fill style={{ objectFit: "cover" }} />
                 </Box>
                 <Typography
                   variant="h5"
@@ -167,12 +155,10 @@ export default function Home() {
                     variant="contained"
                     href={game.path}
                     sx={{
-                      background:
-                        "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
+                      background: "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
                       color: "white",
                       "&:hover": {
-                        background:
-                          "linear-gradient(45deg, #FF3366 20%, #6C63FF 80%)",
+                        background: "linear-gradient(45deg, #FF3366 20%, #6C63FF 80%)",
                       },
                     }}
                   >

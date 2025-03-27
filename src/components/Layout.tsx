@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Box, Container, useTheme } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Navbar from "../components/Navbar";
 
 interface LayoutProps {
@@ -10,7 +10,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   return (
     <Box

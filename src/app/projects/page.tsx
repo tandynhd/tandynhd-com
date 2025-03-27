@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Typography, Grid, Paper, Button } from "@mui/material";
+import { Box, Typography, Paper, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import Image from "next/image";
@@ -134,9 +134,7 @@ export default function Projects() {
                   {project.description}
                 </Typography>
                 <Box sx={{ mt: "auto" }}>
-                  <Box
-                    sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}
-                  >
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
                     {project.technologies.map((tech) => (
                       <Paper
                         key={tech}
@@ -157,12 +155,10 @@ export default function Projects() {
                     target="_blank"
                     rel="noopener noreferrer"
                     sx={{
-                      background:
-                        "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
+                      background: "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
                       color: "white",
                       "&:hover": {
-                        background:
-                          "linear-gradient(45deg, #FF3366 20%, #6C63FF 80%)",
+                        background: "linear-gradient(45deg, #FF3366 20%, #6C63FF 80%)",
                       },
                     }}
                   >

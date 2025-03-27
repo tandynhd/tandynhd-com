@@ -13,12 +13,8 @@ import {
   MenuItem,
   Typography,
   useTheme,
-  useMediaQuery,
-  Avatar,
-  Tooltip,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { motion } from "framer-motion";
 
 const pages = [
   { name: "Home", path: "/" },
@@ -30,26 +26,16 @@ const pages = [
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   const handleNavigation = (path: string) => {
@@ -62,14 +48,10 @@ const Navbar = () => {
       position="fixed"
       sx={{
         background:
-          theme.palette.mode === "dark"
-            ? "rgba(18, 18, 18, 0.8)"
-            : "rgba(255, 255, 255, 0.8)",
+          theme.palette.mode === "dark" ? "rgba(18, 18, 18, 0.8)" : "rgba(255, 255, 255, 0.8)",
         backdropFilter: "blur(10px)",
         borderBottom: `1px solid ${
-          theme.palette.mode === "dark"
-            ? "rgba(255, 255, 255, 0.1)"
-            : "rgba(0, 0, 0, 0.1)"
+          theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"
         }`,
       }}
     >
@@ -134,10 +116,7 @@ const Navbar = () => {
                   key={page.name}
                   onClick={() => handleNavigation(page.path)}
                   sx={{
-                    color:
-                      theme.palette.mode === "dark"
-                        ? "inherit"
-                        : "text.primary",
+                    color: theme.palette.mode === "dark" ? "inherit" : "text.primary",
                     "&:hover": {
                       background:
                         theme.palette.mode === "dark"
@@ -180,8 +159,8 @@ const Navbar = () => {
                     pathname === page.path
                       ? theme.palette.primary.main
                       : theme.palette.mode === "dark"
-                      ? "inherit"
-                      : "text.primary",
+                        ? "inherit"
+                        : "text.primary",
                   display: "block",
                   fontWeight: pathname === page.path ? 600 : 400,
                   "&:hover": {

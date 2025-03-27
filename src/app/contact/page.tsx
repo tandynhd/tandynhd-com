@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-  IconButton,
-} from "@mui/material";
+import { Box, Typography, TextField, Button, Paper } from "@mui/material";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -37,9 +30,7 @@ export default function Contact() {
     message: "",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -83,7 +74,7 @@ export default function Contact() {
               marginBottom: "2rem",
             }}
           >
-            Let's work together on something amazing
+            Let&apos;s work together on something amazing
           </motion.h2>
         </motion.div>
 
@@ -94,12 +85,7 @@ export default function Contact() {
             gap: 4,
           }}
         >
-          <motion.div
-            variants={fadeInUp}
-            initial="initial"
-            animate="animate"
-            style={{ flex: 1 }}
-          >
+          <motion.div variants={fadeInUp} initial="initial" animate="animate" style={{ flex: 1 }}>
             <Paper
               sx={{
                 p: 4,
@@ -187,11 +173,9 @@ export default function Contact() {
                   size="large"
                   sx={{
                     mt: 3,
-                    background:
-                      "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
+                    background: "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
                     "&:hover": {
-                      background:
-                        "linear-gradient(45deg, #FF3366 50%, #6C63FF 100%)",
+                      background: "linear-gradient(45deg, #FF3366 50%, #6C63FF 100%)",
                     },
                   }}
                 >
@@ -218,9 +202,7 @@ export default function Contact() {
               <Typography variant="h3" gutterBottom>
                 Connect With Me
               </Typography>
-              <Box
-                sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}
-              >
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
                 <Button
                   startIcon={<GitHubIcon />}
                   variant="outlined"

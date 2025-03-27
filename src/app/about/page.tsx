@@ -73,10 +73,9 @@ export default function About() {
                 My Story
               </Typography>
               <Typography color="text.secondary" paragraph>
-                I'm a passionate developer with a keen eye for design and a love
-                for creating seamless user experiences. With years of experience
-                in web development, I specialize in building modern, responsive,
-                and performant applications that make a difference.
+                I&apos;m a passionate developer with a keen eye for design and a love for creating
+                seamless user experiences. With years of experience in web development, I specialize
+                in building modern, responsive, and performant applications that make a difference.
               </Typography>
             </Paper>
           </motion.div>
