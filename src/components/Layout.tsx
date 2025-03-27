@@ -1,0 +1,46 @@
+"use client";
+
+import { ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Box, Container, useTheme } from "@mui/material";
+import Navbar from "../components/Navbar";
+
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      sx={{
+        minHeight: "100vh",
+        bgcolor: "background.default",
+        pt: { xs: 8, sm: 9 }, // Add padding top to account for fixed navbar
+      }}
+    >
+      <Navbar />
+      <Container
+        maxWidth="lg"
+        sx={{
+          py: 4,
+          minHeight: "calc(100vh - 64px)", // Subtract navbar height
+        }}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            {children}
+          </motion.div>
+        </AnimatePresence>
+      </Container>
+    </Box>
+  );
+};
+
+export default Layout;
