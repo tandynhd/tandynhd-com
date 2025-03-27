@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎮 My Little Corner of the Internet
 
-## Getting Started
+Hey there! Welcome to my personal website 👋
 
-First, run the development server:
+Most of what you’ll find here is the result of me _vibe coding_ when I’ve got some spare time — a mix of goofy experiments and actual professional work.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Here’s what’s inside:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **🕹️ Fun Web Games** – I like messing around with browser games just for the fun of it. You’ll find a growing collection of silly, experimental, and sometimes downright weird games on the **Home Page**.
+- **💼 Portfolio** – When I’m not busy making nonsense games, I’m working on real projects. The **Portfolio Page** is where I list the actual work I’ve done.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Basically, this site is part playground, part portfolio, and fully me.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 What’s on the site?
 
-To learn more about Next.js, take a look at the following resources:
+### 🏠 Home Page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+A bunch of browser games I’ve built for fun. Nothing serious — just things that made me laugh (or rage) while coding.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📂 Portfolio Page
 
-## Deploy on Vercel
+A proper, polished list of my work projects. This is where I try to look like a grown-up with actual skills.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌍 Come say hi!
+
+If you wanna chat, collab, or just stalk my internet presence, here’s where you can find me:
+
+- [GitHub](https://github.com/tandynhd) 👾
+- [YouTube](https://www.tandynhd.com) 🎥
+- [Podcast](https://www.youtube.com/watch?v=8_2r4_ahFK4&list=PLvglM6EK31a7kwdsO8dhmv21O2DgsSs0z) 🎙️
+- [LinkedIn](https://www.linkedin.com/in/tandynhd) 💼
+- [Twitter](https://twitter.com/tandynhd) 🐦
+
+---
+
+## 🙌 Why does this site exist?
+
+Because the internet needs more weird, personal corners — and I needed a spot to dump everything I make.  
+So pull up a chair, click around, and enjoy!
+
+---

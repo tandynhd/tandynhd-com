@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
+    "@vercel/speed-insights": "^1.2.0",
     "framer-motion": "^12.6.2",
     "gsap": "^3.12.7",
     "next": "15.2.4",
