@@ -30,7 +30,7 @@ A proper, polished list of my work projects. This is where I try to look like a 
 If you wanna chat, collab, or just stalk my internet presence, here’s where you can find me:
 
 - [GitHub](https://github.com/tandynhd) 👾
-- [YouTube](https://www.tandynhd.com) 🎥
+- [YouTube](https://www.youtube.com/@tandynhd) 🎥
 - [Podcast](https://www.youtube.com/watch?v=8_2r4_ahFK4&list=PLvglM6EK31a7kwdsO8dhmv21O2DgsSs0z) 🎙️
 - [LinkedIn](https://www.linkedin.com/in/tandynhd) 💼
 - [Twitter](https://twitter.com/tandynhd) 🐦
