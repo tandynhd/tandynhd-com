@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { darkTheme, lightTheme } from "@/theme/theme";
+import { GlobalStyles } from "@mui/material";
 
 type ThemeContextType = {
   isDarkMode: boolean;
@@ -46,6 +47,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
     <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
       <MuiThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+        <GlobalStyles
+          styles={{
+            "*": {
+              transition:
+                "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+            },
+          }}
+        />
         <CssBaseline />
         {children}
       </MuiThemeProvider>

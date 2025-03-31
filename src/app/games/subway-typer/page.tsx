@@ -1,87 +1,167 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Box, Typography, Paper, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 
 const words = [
-  "hello",
-  "world",
-  "coding",
-  "game",
-  "type",
-  "fast",
-  "quick",
-  "learn",
-  "react",
-  "next",
-  "typescript",
-  "javascript",
-  "python",
-  "java",
-  "swift",
-  "html",
-  "css",
-  "node",
-  "express",
-  "mongodb",
-  "sql",
-  "git",
-  "docker",
+  ["apple", "banana", "cherry"],
+  ["dragon", "elephant", "flower"],
+  ["guitar", "hammer", "island"],
+  ["jacket", "knight", "lemon"],
+  ["mango", "needle", "orange"],
+  ["pencil", "queen", "rabbit"],
+  ["sunset", "tiger", "umbrella"],
+  ["violet", "window", "xylophone"],
+  ["yellow", "zebra", "anchor"],
 ];
 
+const OBSTACLE_TYPES = ["🌳", "🚂", "🪨", "🚧"];
+const COIN = "🪙";
+const PLAYER = "🏃";
+const TRACK_WIDTH = 100;
+const TRACK_HEIGHT = 400;
+const CELL_HEIGHT = TRACK_HEIGHT / 20;
+
 export default function SubwayTyper() {
-  const [currentWord, setCurrentWord] = useState("");
-  const [input, setInput] = useState("");
+  const [currentWords, setCurrentWords] = useState<string[]>([]);
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(5);
+  const [lives, setLives] = useState(3);
   const [gameOver, setGameOver] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [playerPosition, setPlayerPosition] = useState(1);
+  const [currentInput, setCurrentInput] = useState("");
+  const [obstacles, setObstacles] = useState<
+    Array<{ type: string; track: number; position: number }>
+  >([]);
+  const [coins, setCoins] = useState<Array<{ track: number; position: number }>>([]);
 
   useEffect(() => {
     if (!gameOver) {
-      const timer = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            setGameOver(true);
-            return 0;
+      // Generate initial words
+      const randomWordSet = words[Math.floor(Math.random() * words.length)];
+      setCurrentWords(randomWordSet);
+
+      // Generate obstacles
+      const obstacleInterval = setInterval(() => {
+        setObstacles((prev) => {
+          const newObstacles = prev
+            .map((obs) => ({ ...obs, position: obs.position + 1 }))
+            .filter((obs) => obs.position < 20);
+
+          // Only add new obstacle if there isn't one in the same track at position 0
+          if (Math.random() < 0.3 && !newObstacles.some((obs) => obs.position === 0)) {
+            newObstacles.push({
+              type: OBSTACLE_TYPES[Math.floor(Math.random() * OBSTACLE_TYPES.length)],
+              track: Math.floor(Math.random() * 3),
+              position: 0,
+            });
           }
-          return prev - 1;
+
+          return newObstacles;
         });
+
+        // Generate coins
+        setCoins((prev) => {
+          const newCoins = prev
+            .map((coin) => ({ ...coin, position: coin.position + 1 }))
+            .filter((coin) => coin.position < 20);
+
+          // Only add new coin if there isn't one in the same track at position 0
+          if (Math.random() < 0.2 && !newCoins.some((coin) => coin.position === 0)) {
+            newCoins.push({
+              track: Math.floor(Math.random() * 3),
+              position: 0,
+            });
+          }
+
+          return newCoins;
+        });
+
+        // Check collisions
+        const playerTrack = playerPosition;
+        const playerRow = 19; // Player is at the bottom
+
+        // Check obstacle collisions
+        const hitObstacle = obstacles.some(
+          (obs) => obs.track === playerTrack && obs.position === playerRow
+        );
+
+        // Check coin collections
+        const collectedCoin = coins.some(
+          (coin) => coin.track === playerTrack && coin.position === playerRow
+        );
+
+        if (hitObstacle) {
+          setLives((prev) => {
+            if (prev <= 1) {
+              setGameOver(true);
+              return 0;
+            }
+            return prev - 1;
+          });
+        }
+
+        if (collectedCoin) {
+          setScore((prev) => prev + 10);
+          setCoins((prev) =>
+            prev.filter((coin) => !(coin.track === playerTrack && coin.position === playerRow))
+          );
+        }
+
+        // Add time-based points
+        setScore((prev) => prev + 1);
       }, 1000);
 
-      return () => clearInterval(timer);
+      return () => clearInterval(obstacleInterval);
     }
-  }, [gameOver]);
+  }, [gameOver, playerPosition]);
 
-  useEffect(() => {
-    if (!currentWord && !gameOver) {
-      const randomWord = words[Math.floor(Math.random() * words.length)];
-      setCurrentWord(randomWord);
-      setTimeLeft(5);
-    }
-  }, [currentWord, gameOver]);
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.key === "ArrowLeft" && playerPosition > 0) {
+      setPlayerPosition((prev) => prev - 1);
+      setCurrentInput("");
+    } else if (e.key === "ArrowRight" && playerPosition < 2) {
+      setPlayerPosition((prev) => prev + 1);
+      setCurrentInput("");
+    } else {
+      // Check if the key pressed matches any word's first letter
+      const key = e.key.toLowerCase();
+      const matchingWordIndex = currentWords.findIndex((word) => word.startsWith(key));
+      if (matchingWordIndex !== -1) {
+        setPlayerPosition(matchingWordIndex);
+        setCurrentInput(key);
+      } else if (currentInput) {
+        // If we're already typing, append the key
+        const newInput = currentInput + key;
+        setCurrentInput(newInput);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setInput(value);
-
-    if (value === currentWord) {
-      setScore((prev) => prev + 1);
-      setInput("");
-      setCurrentWord("");
+        // Check if we've completed the word
+        const currentWord = currentWords[playerPosition];
+        if (newInput === currentWord) {
+          setCurrentInput("");
+          const randomWordSet = words[Math.floor(Math.random() * words.length)];
+          setCurrentWords(randomWordSet);
+        }
+      }
     }
   };
 
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [playerPosition, currentWords, currentInput]);
+
   const handleRestart = () => {
     setScore(0);
+    setLives(3);
     setGameOver(false);
-    setInput("");
-    setCurrentWord("");
-    setTimeLeft(5);
-    inputRef.current?.focus();
+    setObstacles([]);
+    setCoins([]);
+    setPlayerPosition(1);
+    setCurrentInput("");
+    const randomWordSet = words[Math.floor(Math.random() * words.length)];
+    setCurrentWords(randomWordSet);
   };
 
   return (
@@ -89,10 +169,11 @@ export default function SubwayTyper() {
       <Box
         sx={{
           minHeight: "100vh",
-          py: 8,
           display: "flex",
           flexDirection: "column",
+          justifyContent: "center",
           alignItems: "center",
+          py: 8,
         }}
       >
         <motion.div
@@ -115,7 +196,7 @@ export default function SubwayTyper() {
             Subway Typer
           </Typography>
           <Typography variant="h2" sx={{ color: "#B3B3B3" }}>
-            Type the words before they disappear!
+            Type the first letter to move to that track!
           </Typography>
         </motion.div>
 
@@ -126,16 +207,14 @@ export default function SubwayTyper() {
             backdropFilter: "blur(10px)",
             border: "1px solid rgba(255, 255, 255, 0.1)",
             width: "100%",
-            maxWidth: 600,
+            maxWidth: 800,
             textAlign: "center",
           }}
         >
-          <Typography variant="h3" gutterBottom>
-            Score: {score}
-          </Typography>
-          <Typography variant="h4" gutterBottom>
-            Time Left: {timeLeft}s
-          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+            <Typography variant="h3">Score: {score}</Typography>
+            <Typography variant="h3">Lives: {"❤️".repeat(lives)}</Typography>
+          </Box>
 
           {gameOver ? (
             <Box>
@@ -158,32 +237,112 @@ export default function SubwayTyper() {
             </Box>
           ) : (
             <Box>
-              <Typography
-                variant="h2"
+              <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+                {currentWords.map((word, index) => (
+                  <Typography
+                    key={word}
+                    variant="h4"
+                    sx={{
+                      color: playerPosition === index ? "#FF3366" : "inherit",
+                      fontWeight: playerPosition === index ? 700 : 400,
+                    }}
+                  >
+                    {word.split("").map((letter, letterIndex) => (
+                      <span
+                        key={letterIndex}
+                        style={{
+                          color:
+                            playerPosition === index && letterIndex < currentInput.length
+                              ? "#6C63FF"
+                              : playerPosition === index
+                                ? "#FF3366"
+                                : "inherit",
+                          fontWeight: playerPosition === index ? 700 : 400,
+                        }}
+                      >
+                        {letter}
+                      </span>
+                    ))}
+                  </Typography>
+                ))}
+              </Box>
+
+              <Box
                 sx={{
-                  marginBottom: "2rem",
-                  color: timeLeft <= 2 ? "#FF3366" : "inherit",
+                  position: "relative",
+                  height: TRACK_HEIGHT,
+                  mb: 2,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                {currentWord}
-              </Typography>
-              <input
-                ref={inputRef}
-                type="text"
-                value={input}
-                onChange={handleInputChange}
-                autoFocus
-                style={{
-                  width: "100%",
-                  padding: "1rem",
-                  fontSize: "1.5rem",
-                  background: "rgba(255, 255, 255, 0.1)",
-                  border: "1px solid rgba(255, 255, 255, 0.2)",
-                  borderRadius: "4px",
-                  color: "white",
-                  outline: "none",
-                }}
-              />
+                <Box sx={{ position: "relative", width: TRACK_WIDTH * 3 }}>
+                  {[0, 1, 2].map((track) => (
+                    <Box
+                      key={track}
+                      sx={{
+                        position: "absolute",
+                        left: `${track * TRACK_WIDTH}px`,
+                        width: `${TRACK_WIDTH}px`,
+                        height: "100%",
+                        border: "1px solid rgba(255, 255, 255, 0.2)",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      {track === playerPosition && (
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            bottom: "0",
+                            fontSize: "2rem",
+                            width: "100%",
+                            textAlign: "center",
+                            zIndex: 2,
+                          }}
+                        >
+                          {PLAYER}
+                        </Box>
+                      )}
+                      {obstacles
+                        .filter((obs) => obs.track === track)
+                        .map((obs, index) => (
+                          <Box
+                            key={index}
+                            sx={{
+                              position: "absolute",
+                              top: `${obs.position * CELL_HEIGHT}px`,
+                              fontSize: "2rem",
+                              width: "100%",
+                              textAlign: "center",
+                              zIndex: 1,
+                            }}
+                          >
+                            {obs.type}
+                          </Box>
+                        ))}
+                      {coins
+                        .filter((coin) => coin.track === track)
+                        .map((coin, index) => (
+                          <Box
+                            key={index}
+                            sx={{
+                              position: "absolute",
+                              top: `${coin.position * CELL_HEIGHT}px`,
+                              fontSize: "2rem",
+                              width: "100%",
+                              textAlign: "center",
+                              zIndex: 1,
+                            }}
+                          >
+                            {COIN}
+                          </Box>
+                        ))}
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
             </Box>
           )}
         </Paper>

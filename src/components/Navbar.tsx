@@ -15,13 +15,14 @@ import {
   useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useThemeContext } from "@/context/ThemeContext";
+import { motion } from "framer-motion";
+import LightToggleButton from "@/components/LightToggleButton/page";
 
 const pages = [
-  { name: "Home", path: "/" },
-  { name: "Portfolio", path: "/portfolio" },
-  { name: "About", path: "/about" },
+  { name: "Mini Games", path: "/" },
   { name: "Projects", path: "/projects" },
-  { name: "Contact", path: "/contact" },
+  { name: "About", path: "/about" },
 ];
 
 const Navbar = () => {
@@ -29,6 +30,7 @@ const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const theme = useTheme();
+  const { toggleTheme } = useThemeContext();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -53,32 +55,38 @@ const Navbar = () => {
         borderBottom: `1px solid ${
           theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"
         }`,
+        transition: "all 0.3s ease-in-out",
       }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: theme.palette.mode === "dark" ? "inherit" : "primary.main",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: theme.palette.mode === "dark" ? "inherit" : "primary.main",
+                textDecoration: "none",
+                background: "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              TANDYNHD
+            </Typography>
+          </motion.div>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -130,6 +138,7 @@ const Navbar = () => {
               ))}
             </Menu>
           </Box>
+
           <Typography
             variant="h5"
             noWrap
@@ -144,33 +153,66 @@ const Navbar = () => {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              background: "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
             }}
           >
-            LOGO
+            TANDYNHD
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             {pages.map((page) => (
-              <Button
-                key={page.name}
-                onClick={() => handleNavigation(page.path)}
-                sx={{
-                  my: 2,
-                  color:
-                    pathname === page.path
-                      ? theme.palette.primary.main
-                      : theme.palette.mode === "dark"
-                        ? "inherit"
-                        : "text.primary",
-                  display: "block",
-                  fontWeight: pathname === page.path ? 600 : 400,
-                  "&:hover": {
-                    color: theme.palette.primary.main,
-                  },
-                }}
-              >
-                {page.name}
-              </Button>
+              <motion.div key={page.name} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  onClick={() => handleNavigation(page.path)}
+                  sx={{
+                    my: 2,
+                    mx: 1,
+                    color:
+                      pathname === page.path
+                        ? theme.palette.primary.main
+                        : theme.palette.mode === "dark"
+                          ? "inherit"
+                          : "text.primary",
+                    display: "block",
+                    fontWeight: pathname === page.path ? 600 : 400,
+                    position: "relative",
+                    "&::after": {
+                      content: '""',
+                      position: "absolute",
+                      width: pathname === page.path ? "100%" : "0%",
+                      height: "2px",
+                      bottom: 0,
+                      left: 0,
+                      backgroundColor: theme.palette.primary.main,
+                      transition: "width 0.3s ease-in-out",
+                    },
+                    "&:hover::after": {
+                      width: "100%",
+                    },
+                    "&:hover": {
+                      color: theme.palette.primary.main,
+                    },
+                  }}
+                >
+                  {page.name}
+                </Button>
+              </motion.div>
             ))}
+          </Box>
+
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <LightToggleButton isDark={theme.palette.mode === "dark"} onToggle={toggleTheme} />
+            </motion.div>
           </Box>
         </Toolbar>
       </Container>

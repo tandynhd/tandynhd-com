@@ -21,27 +21,19 @@ const staggerContainer = {
 
 const projects = [
   {
-    title: "Project 1",
+    title: "tandynhd.com",
     description: "A modern web application built with Next.js and TypeScript",
     image: "https://placehold.co/800x600",
     technologies: ["Next.js", "TypeScript", "Material-UI"],
-    link: "https://github.com/yourusername/project1",
+    link: "https://github.com/tandynhd/tandynhd-com",
   },
   {
-    title: "Project 2",
+    title: "Impressions.one",
     description: "Full-stack application with real-time features",
     image: "https://placehold.co/800x600",
     technologies: ["React", "Node.js", "Socket.io"],
-    link: "https://github.com/yourusername/project2",
+    link: "https://impressions.one",
   },
-  {
-    title: "Project 3",
-    description: "Mobile-first e-commerce platform",
-    image: "https://placehold.co/800x600",
-    technologies: ["React Native", "Redux", "Firebase"],
-    link: "https://github.com/yourusername/project3",
-  },
-  // Add more projects as needed
 ];
 
 export default function Projects() {
@@ -65,7 +57,7 @@ export default function Projects() {
               marginBottom: "1rem",
             }}
           >
-            My Projects
+            My Portfolio
           </motion.h1>
           <motion.h2
             variants={fadeInUp}

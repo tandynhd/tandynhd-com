@@ -7,14 +7,12 @@ import Layout from "@/components/Layout";
 import Image from "next/image";
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 },
-};
-
-const staggerContainer = {
   animate: {
+    opacity: 1,
+    y: 0,
     transition: {
-      staggerChildren: 0.1,
+      duration: 0.5,
+      ease: "easeOut",
     },
   },
 };
@@ -31,7 +29,6 @@ export default function Home() {
   const theme = useTheme();
 
   useEffect(() => {
-    // Fetch games from the API
     fetch("/api/games")
       .then((res) => res.json())
       .then((data) => setGames(data))
@@ -48,37 +45,6 @@ export default function Home() {
           justifyContent: "center",
         }}
       >
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          animate="animate"
-          style={{ marginBottom: "2rem" }}
-        >
-          <motion.h1
-            variants={fadeInUp}
-            style={{
-              fontSize: "4rem",
-              fontWeight: 700,
-              background: "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              marginBottom: "1rem",
-            }}
-          >
-            Welcome to My Games
-          </motion.h1>
-          <motion.h2
-            variants={fadeInUp}
-            style={{
-              fontSize: "2rem",
-              color: theme.palette.text.secondary,
-              marginBottom: "2rem",
-            }}
-          >
-            A collection of fun and interactive web games
-          </motion.h2>
-        </motion.div>
-
         <Box
           sx={{
             display: "grid",

@@ -10,14 +10,12 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  // const theme = useTheme();
-
   return (
     <Box
       sx={{
         minHeight: "100vh",
         bgcolor: "background.default",
-        pt: { xs: 8, sm: 9 }, // Add padding top to account for fixed navbar
+        pt: { xs: 8, sm: 9 },
       }}
     >
       <Navbar />
@@ -25,7 +23,7 @@ const Layout = ({ children }: LayoutProps) => {
         maxWidth="lg"
         sx={{
           py: 4,
-          minHeight: "calc(100vh - 64px)", // Subtract navbar height
+          minHeight: "calc(100vh - 64px)",
         }}
       >
         <AnimatePresence mode="wait">
