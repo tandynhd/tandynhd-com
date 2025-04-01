@@ -1,6 +1,7 @@
 "use client";
 
-import { Box, Typography, Paper } from "@mui/material";
+import { useState } from "react";
+import { Box, Typography, Paper, Tabs, Tab } from "@mui/material";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 
@@ -10,24 +11,77 @@ const fadeInUp = {
   transition: { duration: 0.5 },
 };
 
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
+const categories: Record<string, string[]> = {
+  All: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Express",
+    "Flask",
+    "GraphQL",
+    "MongoDB",
+    "AWS",
+    "Google Cloud",
+    "Firebase",
+    "Supabase",
+    "JavaScript",
+    "Python",
+    "C#",
+    "C++",
+    "Java",
+    "SQL",
+    "Docker",
+    "UI/UX Design",
+    "Responsive Design",
+    "Web Design",
+    "App Development",
+    "Game Development",
+    "Machine Learning",
+    "Deep Learning",
+    "Computer Vision",
+    "Natural Language Processing",
+    "Augmented Reality",
+    "Unity",
+    "Unreal Engine",
+    "Blender",
+    "Maya",
+    "3D Modeling",
+    "3D Animation",
+    "3D Rendering",
+  ],
+  "Web Development": [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Express",
+    "GraphQL",
+    "MongoDB",
+    "AWS",
+  ],
+  "Programming Languages": ["JavaScript", "Python", "C#", "C++", "Java", "SQL"],
+  "Game Development": [
+    "Unity",
+    "Unreal Engine",
+    "Blender",
+    "Maya",
+    "3D Modeling",
+    "3D Animation",
+    "3D Rendering",
+  ],
+  "AI/ML": ["Machine Learning", "Deep Learning", "Computer Vision", "Natural Language Processing"],
 };
 
+type CategoriesType = keyof typeof categories;
+
 export default function AboutMe() {
+  const [selectedCategory, setSelectedCategory] = useState<CategoriesType>("All");
+
   return (
     <Layout>
       <Box sx={{ minHeight: "100vh", py: 8 }}>
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          animate="animate"
-          style={{ marginBottom: "2rem" }}
-        >
+        <motion.div initial="initial" animate="animate" style={{ marginBottom: "2rem" }}>
           <motion.h1
             variants={fadeInUp}
             style={{
@@ -43,94 +97,64 @@ export default function AboutMe() {
           </motion.h1>
           <motion.h2
             variants={fadeInUp}
-            style={{
-              fontSize: "2rem",
-              color: "#B3B3B3",
-              marginBottom: "2rem",
-            }}
+            style={{ fontSize: "2rem", color: "#B3B3B3", marginBottom: "2rem" }}
           >
             Passionate about creating beautiful and functional web experiences
           </motion.h2>
         </motion.div>
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <motion.div
-            variants={fadeInUp}
-            initial="initial"
-            animate="animate"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
+          <Paper
+            sx={{
+              p: 4,
+              background: "rgba(255, 255, 255, 0.05)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+            }}
           >
-            <Paper
-              sx={{
-                p: 4,
-                background: "rgba(255, 255, 255, 0.05)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-              }}
+            <Typography variant="h3" gutterBottom>
+              Skills & Expertise (WIP)
+            </Typography>
+            <Tabs
+              value={selectedCategory}
+              onChange={(e, newValue: CategoriesType) => setSelectedCategory(newValue)}
+              variant="scrollable"
+              scrollButtons="auto"
+              sx={{ marginBottom: 2 }}
             >
-              <Typography variant="h3" gutterBottom>
-                My Story
-              </Typography>
-              <Typography color="text.secondary" paragraph>
-                I&apos;m a passionate developer with a keen eye for design and a love for creating
-                seamless user experiences. With years of experience in web development, I specialize
-                in building modern, responsive, and performant applications that make a difference.
-              </Typography>
-            </Paper>
-          </motion.div>
-
-          <motion.div
-            variants={fadeInUp}
-            initial="initial"
-            animate="animate"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Paper
-              sx={{
-                p: 4,
-                background: "rgba(255, 255, 255, 0.05)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-              }}
-            >
-              <Typography variant="h3" gutterBottom>
-                Skills & Expertise
-              </Typography>
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-                {[
-                  "React",
-                  "Next.js",
-                  "TypeScript",
-                  "Node.js",
-                  "MongoDB",
-                  "GraphQL",
-                  "AWS",
-                  "Docker",
-                  "UI/UX Design",
-                  "Responsive Design",
-                ].map((skill) => (
-                  <motion.div
-                    key={skill}
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.3 }}
+              {Object.keys(categories).map((category) => (
+                <Tab key={category} label={category} value={category} />
+              ))}
+            </Tabs>
+            <Box sx={{ position: "relative", width: "100%", height: 400, overflow: "hidden" }}>
+              {categories[selectedCategory].map((skill) => (
+                <motion.div
+                  key={skill}
+                  drag
+                  dragConstraints={{ left: 0, right: 150, top: 0, bottom: 300 }} // Dragging within half width
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                  initial={{
+                    x: Math.random() * 150, // Random position within half the container width
+                    y: Math.random() * 300, // Random position for vertical space
+                  }}
+                  dragElastic={0.2} // Reduced inertia
+                  dragMomentum={false} // Disabled momentum
+                  style={{ position: "absolute" }}
+                >
+                  <Paper
+                    sx={{
+                      px: 2,
+                      py: 1,
+                      background: "rgba(255, 255, 255, 0.1)",
+                      borderRadius: 2,
+                    }}
                   >
-                    <Paper
-                      sx={{
-                        px: 2,
-                        py: 1,
-                        background: "rgba(255, 255, 255, 0.1)",
-                        borderRadius: 2,
-                      }}
-                    >
-                      <Typography>{skill}</Typography>
-                    </Paper>
-                  </motion.div>
-                ))}
-              </Box>
-            </Paper>
-          </motion.div>
+                    <Typography>{skill}</Typography>
+                  </Paper>
+                </motion.div>
+              ))}
+            </Box>
+          </Paper>
         </Box>
       </Box>
     </Layout>

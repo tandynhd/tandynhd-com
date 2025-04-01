@@ -7,7 +7,8 @@ import Layout from "@/components/Layout";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import EmailIcon from "@mui/icons-material/Email";
+import emailjs from "@emailjs/browser";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -29,6 +30,11 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -40,8 +46,36 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your form submission logic here
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          name: formData.name,
+          email: formData.email,
+          time: new Date().toLocaleString(),
+          message: formData.message,
+        }
+      );
+
+      setSubmitStatus({
+        type: "success",
+        message: "Message received successfully! I will get back to you soon.",
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "Failed to send message. Please try again later.",
+      });
+      console.error("Error sending email:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -74,7 +108,7 @@ export default function Contact() {
               marginBottom: "2rem",
             }}
           >
-            Let&apos;s work together on something amazing
+            Feel free to contact me for fun collaborations.
           </motion.h2>
         </motion.div>
 
@@ -98,6 +132,19 @@ export default function Contact() {
                 Contact Form
               </Typography>
               <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                {submitStatus && (
+                  <Typography
+                    sx={{
+                      mb: 2,
+                      p: 2,
+                      borderRadius: 1,
+                      bgcolor: submitStatus.type === "success" ? "success.main" : "error.main",
+                      color: "white",
+                    }}
+                  >
+                    {submitStatus.message}
+                  </Typography>
+                )}
                 <TextField
                   fullWidth
                   label="Name"
@@ -171,6 +218,7 @@ export default function Contact() {
                   type="submit"
                   variant="contained"
                   size="large"
+                  disabled={isSubmitting}
                   sx={{
                     mt: 3,
                     background: "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
@@ -179,7 +227,7 @@ export default function Contact() {
                     },
                   }}
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </Box>
             </Paper>
@@ -206,7 +254,7 @@ export default function Contact() {
                 <Button
                   startIcon={<GitHubIcon />}
                   variant="outlined"
-                  href="https://github.com/yourusername"
+                  href="https://github.com/tandynhd"
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
@@ -223,7 +271,7 @@ export default function Contact() {
                 <Button
                   startIcon={<LinkedInIcon />}
                   variant="outlined"
-                  href="https://linkedin.com/in/yourusername"
+                  href="https://linkedin.com/in/tandynhd"
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
@@ -240,7 +288,7 @@ export default function Contact() {
                 <Button
                   startIcon={<TwitterIcon />}
                   variant="outlined"
-                  href="https://twitter.com/yourusername"
+                  href="https://twitter.com/tandynhd"
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
@@ -255,9 +303,9 @@ export default function Contact() {
                   Twitter
                 </Button>
                 <Button
-                  startIcon={<EmailIcon />}
+                  startIcon={<YouTubeIcon />}
                   variant="outlined"
-                  href="mailto:your.email@example.com"
+                  href="https://www.youtube.com/@tandynhd"
                   sx={{
                     borderColor: "rgba(255, 255, 255, 0.1)",
                     color: "text.primary",
@@ -267,7 +315,7 @@ export default function Contact() {
                     },
                   }}
                 >
-                  Email
+                  YouTube
                 </Button>
               </Box>
             </Paper>

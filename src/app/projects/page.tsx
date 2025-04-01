@@ -23,14 +23,14 @@ const projects = [
   {
     title: "tandynhd.com",
     description: "A modern web application built with Next.js and TypeScript",
-    image: "https://placehold.co/800x600",
+    image: "/images/tandynhd-computer.png",
     technologies: ["Next.js", "TypeScript", "Material-UI"],
     link: "https://github.com/tandynhd/tandynhd-com",
   },
   {
     title: "Impressions.one",
     description: "Full-stack application with real-time features",
-    image: "https://placehold.co/800x600",
+    image: "/images/impressions-one.png",
     technologies: ["React", "Node.js", "Socket.io"],
     link: "https://impressions.one",
   },

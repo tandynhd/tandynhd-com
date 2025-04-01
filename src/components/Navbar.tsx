@@ -79,7 +79,7 @@ const Navbar = () => {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              TANDYNHD
+              tandynhd
             </Typography>
           </motion.div>
 
@@ -158,7 +158,7 @@ const Navbar = () => {
               WebkitTextFillColor: "transparent",
             }}
           >
-            TANDYNHD
+            tandynhd
           </Typography>
 
           <Box

@@ -42,4 +42,8 @@ If you wanna chat, collab, or just stalk my internet presence, here’s where yo
 Because the internet needs more weird, personal corners — and I needed a spot to dump everything I make.  
 So pull up a chair, click around, and enjoy!
 
+## Credits
+
+All open source assets used have been credited [here](./attributions.md)
+
 ---
