@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Box, Container } from "@mui/material";
 import Navbar from "../components/Navbar";
+import ConnectButton from "./ConnectButton";
 
 interface LayoutProps {
   children: ReactNode;
@@ -36,6 +37,16 @@ const Layout = ({ children }: LayoutProps) => {
             {children}
           </motion.div>
         </AnimatePresence>
+        <Box
+          sx={{
+            position: "fixed",
+            bottom: 24,
+            right: 24,
+            zIndex: 1000,
+          }}
+        >
+          <ConnectButton />
+        </Box>
       </Container>
     </Box>
   );

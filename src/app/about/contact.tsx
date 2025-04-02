@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Typography, TextField, Button, Paper } from "@mui/material";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
@@ -35,6 +35,16 @@ export default function Contact() {
     type: "success" | "error";
     message: string;
   } | null>(null);
+
+  useEffect(() => {
+    const url = window.location.href;
+    if (url.includes("#contact-section")) {
+      const contactSection = document.getElementById("contact-section");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -80,7 +90,7 @@ export default function Contact() {
 
   return (
     <Layout>
-      <Box sx={{ minHeight: "100vh", py: 8 }}>
+      <Box sx={{ minHeight: "100vh", py: 8 }} id="contact-section">
         <motion.div
           variants={staggerContainer}
           initial="initial"

@@ -7,28 +7,25 @@ export async function GET() {
     const gamesDir = path.join(process.cwd(), "src/app/games");
     const games = [];
 
-    // Read all directories in the games folder
     const gameDirs = fs
       .readdirSync(gamesDir, { withFileTypes: true })
       .filter((dirent) => dirent.isDirectory())
       .map((dirent) => dirent.name);
 
-    // For each game directory, read its metadata.json if it exists
     for (const gameDir of gameDirs) {
       const metadataPath = path.join(gamesDir, gameDir, "metadata.json");
       if (fs.existsSync(metadataPath)) {
         const metadata = JSON.parse(fs.readFileSync(metadataPath, "utf8"));
         games.push({
-          name: metadata.name || gameDir,
-          path: `/games/${gameDir}`,
+          title: metadata.name || gameDir,
+          link: `/games/${gameDir}`,
           description: metadata.description || "A fun web game",
           image: metadata.image || "https://placehold.co/800x600",
         });
       } else {
-        // If no metadata.json exists, create a default entry
         games.push({
-          name: gameDir,
-          path: `/games/${gameDir}`,
+          title: gameDir,
+          link: `/games/${gameDir}`,
           description: "A fun web game",
           image: "https://placehold.co/800x600",
         });

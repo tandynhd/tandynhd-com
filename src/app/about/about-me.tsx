@@ -93,13 +93,13 @@ export default function AboutMe() {
               marginBottom: "1rem",
             }}
           >
-            About Me
+            Hi there,
           </motion.h1>
           <motion.h2
             variants={fadeInUp}
             style={{ fontSize: "2rem", color: "#B3B3B3", marginBottom: "2rem" }}
           >
-            Passionate about creating beautiful and functional web experiences
+            I like to build things. Find some of them that made it listed here.
           </motion.h2>
         </motion.div>
 

@@ -1,32 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Typography, Button, Paper, useTheme } from "@mui/material";
-import { motion } from "framer-motion";
+import { Box } from "@mui/material";
 import Layout from "@/components/Layout";
-import Image from "next/image";
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
+import GenericCard from "@/components/GenericCard";
 
 interface Game {
-  name: string;
-  path: string;
+  title: string;
+  link: string;
   description: string;
   image: string;
 }
 
 export default function Home() {
   const [games, setGames] = useState<Game[]>([]);
-  const theme = useTheme();
 
   useEffect(() => {
     fetch("/api/games")
@@ -57,82 +44,7 @@ export default function Home() {
           }}
         >
           {games.map((game, index) => (
-            <motion.div
-              key={index}
-              variants={fadeInUp}
-              initial="initial"
-              animate="animate"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Paper
-                sx={{
-                  p: 3,
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  background:
-                    theme.palette.mode === "dark"
-                      ? "rgba(255, 255, 255, 0.05)"
-                      : "rgba(255, 255, 255, 0.8)",
-                  backdropFilter: "blur(10px)",
-                  border: `1px solid ${
-                    theme.palette.mode === "dark"
-                      ? "rgba(255, 255, 255, 0.1)"
-                      : "rgba(0, 0, 0, 0.1)"
-                  }`,
-                  boxShadow:
-                    theme.palette.mode === "dark" ? "none" : "0 4px 20px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <Box
-                  sx={{
-                    position: "relative",
-                    width: "100%",
-                    height: 200,
-                    mb: 2,
-                    borderRadius: 1,
-                    overflow: "hidden",
-                  }}
-                >
-                  <Image src={game.image} alt={game.name} fill style={{ objectFit: "cover" }} />
-                </Box>
-                <Typography
-                  variant="h5"
-                  gutterBottom
-                  sx={{
-                    color: theme.palette.text.primary,
-                    fontWeight: 600,
-                  }}
-                >
-                  {game.name}
-                </Typography>
-                <Typography
-                  color="text.secondary"
-                  paragraph
-                  sx={{
-                    color: theme.palette.text.secondary,
-                  }}
-                >
-                  {game.description}
-                </Typography>
-                <Box sx={{ mt: "auto" }}>
-                  <Button
-                    variant="contained"
-                    href={game.path}
-                    sx={{
-                      background: "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
-                      color: "white",
-                      "&:hover": {
-                        background: "linear-gradient(45deg, #FF3366 20%, #6C63FF 80%)",
-                      },
-                    }}
-                  >
-                    Play Now
-                  </Button>
-                </Box>
-              </Paper>
-            </motion.div>
+            <GenericCard key={index} cardDetails={game} buttonText="Play" />
           ))}
         </Box>
       </Box>
