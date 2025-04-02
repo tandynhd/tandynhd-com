@@ -16,16 +16,16 @@ const staggerContainer = {
 const projects = [
   {
     title: "tandynhd.com",
-    description: "A modern web application built with Next.js and TypeScript",
+    description: "The website you are currently on",
     image: "/images/tandynhd-computer.png",
     technologies: ["Next.js", "TypeScript", "Material-UI"],
     link: "https://github.com/tandynhd/tandynhd-com",
   },
   {
     title: "Impressions.one",
-    description: "Full-stack application with real-time features",
+    description: "Leverage AI to Design, Upscale and Analyze your thumbnails",
     image: "/images/impressions-one.png",
-    technologies: ["React", "Node.js", "Socket.io"],
+    technologies: ["React", "Flask", "Stable Diffusion", "Supabase"],
     link: "https://impressions.one",
   },
 ];

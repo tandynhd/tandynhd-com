@@ -93,13 +93,13 @@ export default function AboutMe() {
               marginBottom: "1rem",
             }}
           >
-            Hi there,
+            I like building things.
           </motion.h1>
           <motion.h2
             variants={fadeInUp}
             style={{ fontSize: "2rem", color: "#B3B3B3", marginBottom: "2rem" }}
           >
-            I like to build things. Find some of them that made it listed here.
+            Every good miner needs a diamond pickaxe, these are mine.
           </motion.h2>
         </motion.div>
 
