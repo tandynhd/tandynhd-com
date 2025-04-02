@@ -77,7 +77,7 @@ export default function Projects() {
           }}
         >
           {projects.map((project, index) => (
-            <GenericCard key={index} cardDetails={project} buttonText="View Project" />
+            <GenericCard key={index} cardDetails={project} newPage={true} />
           ))}
         </Box>
       </Box>

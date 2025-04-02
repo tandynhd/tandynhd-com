@@ -1,4 +1,4 @@
-import { Button, Paper, Typography, Box } from "@mui/material";
+import { Paper, Typography, Box } from "@mui/material";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
@@ -19,11 +19,11 @@ export const fadeInUp = {
 
 export default function GenericCard({
   cardDetails,
-  buttonText,
+  newPage = false,
 }: {
   key: number;
   cardDetails: CardDetails;
-  buttonText: string;
+  newPage?: boolean;
 }) {
   return (
     <motion.div
@@ -32,6 +32,8 @@ export default function GenericCard({
       animate="animate"
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
+      onClick={() => window.open(cardDetails.link, newPage ? "_blank" : "_self")}
+      style={{ cursor: "pointer" }}
     >
       <Paper
         sx={{
@@ -68,10 +70,7 @@ export default function GenericCard({
           {cardDetails.description}
         </Typography>
         <Box sx={{ mt: "auto", display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Box
-            sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}
-            onClick={() => (window.location.href = cardDetails.link)}
-          >
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
             {cardDetails.technologies?.map((tech: string) => (
               <Paper
                 key={tech}
@@ -86,21 +85,6 @@ export default function GenericCard({
               </Paper>
             ))}
           </Box>
-          <Button
-            variant="contained"
-            href={cardDetails.link}
-            target={buttonText === "Play" ? "_self" : "_blank"}
-            rel="noopener noreferrer"
-            sx={{
-              background: "linear-gradient(45deg, #FF3366 30%, #6C63FF 90%)",
-              color: "white",
-              "&:hover": {
-                background: "linear-gradient(45deg, #FF3366 20%, #6C63FF 80%)",
-              },
-            }}
-          >
-            {buttonText}
-          </Button>
         </Box>
       </Paper>
     </motion.div>

@@ -18,11 +18,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useThemeContext } from "@/context/ThemeContext";
 import { motion } from "framer-motion";
 import LightToggleButton from "@/components/LightToggleButton/page";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import FolderIcon from "@mui/icons-material/Folder";
+import PersonIcon from "@mui/icons-material/Person";
 
 const pages = [
-  { name: "Mini Games", path: "/" },
-  { name: "Projects", path: "/projects" },
-  { name: "About", path: "/about" },
+  { name: "Mini Games", path: "/", icon: <SportsEsportsIcon /> },
+  { name: "Projects", path: "/projects", icon: <FolderIcon /> },
+  { name: "About", path: "/about", icon: <PersonIcon /> },
 ];
 
 const Navbar = () => {
@@ -133,7 +136,12 @@ const Navbar = () => {
                     },
                   }}
                 >
-                  <Typography textAlign="center">{page.name}</Typography>
+                  <Typography
+                    textAlign="center"
+                    sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                  >
+                    {page.icon} {page.name}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -176,13 +184,15 @@ const Navbar = () => {
                   sx={{
                     my: 2,
                     mx: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
                     color:
                       pathname === page.path
                         ? theme.palette.primary.main
                         : theme.palette.mode === "dark"
                           ? "inherit"
                           : "text.primary",
-                    display: "block",
                     fontWeight: pathname === page.path ? 600 : 400,
                     position: "relative",
                     "&::after": {
@@ -203,7 +213,7 @@ const Navbar = () => {
                     },
                   }}
                 >
-                  {page.name}
+                  {page.icon} {page.name}
                 </Button>
               </motion.div>
             ))}

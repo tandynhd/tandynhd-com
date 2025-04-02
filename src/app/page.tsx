@@ -44,7 +44,7 @@ export default function Home() {
           }}
         >
           {games.map((game, index) => (
-            <GenericCard key={index} cardDetails={game} buttonText="Play" />
+            <GenericCard key={index} cardDetails={game} />
           ))}
         </Box>
       </Box>
