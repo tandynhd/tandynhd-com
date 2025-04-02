@@ -19,8 +19,9 @@ interface Greeting {
 }
 
 const defaultGreetings: Greeting[] = [
-  { text: "Hola", lang: "Spanish" },
   { text: "Hello", lang: "English" },
+  { text: "Kuzu", lang: "Dzongkha" },
+  { text: "Hola", lang: "Spanish" },
   { text: "Bonjour", lang: "French" },
   { text: "こんにちは", lang: "Japanese" },
   { text: "안녕하세요", lang: "Korean" },

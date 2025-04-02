@@ -56,9 +56,10 @@ export default function Projects() {
           <motion.h2
             variants={fadeInUp}
             style={{
-              fontSize: "2rem",
+              fontSize: "1.2rem",
               color: "#B3B3B3",
               marginBottom: "2rem",
+              fontStyle: "italic",
             }}
           >
             A collection of my recent work and side projects
